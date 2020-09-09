@@ -158,5 +158,16 @@ Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twit
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 
 Second part of Airbnb: Joann Vuong
+
+## third part of Airbnb v3
+
+> ## Contact 💬
+> Ricardo Camayo
+### | [twitter](https://twitter.com/RICARDO1470) | [linkedin](https://www.linkedin.com/in/ricardo-alfonso-camayo/) | [mail](1466@holbertonschool.com) | [github](https://github.com/ricardo1470/README/blob/master/README.md) |
+
+> Victor Paz
+### | [twitter](https://twitter.com/VictorP1312) | [linkedin](https://www.linkedin.com/in/victor-paz-11b56b84/) | [mail](1555@holbertonschool.com) | [github](https://github.com/VMP1312) |
+---
+
 ## License
 Public Domain. No copy write protection. 
