@@ -22,7 +22,7 @@ def get_all_reviews(place_id):
     dic = []
 
     for PlaceID in PlaceID.reviews:
-        new_dict.append(PlaceID.to_dict())
+        dic.append(PlaceID.to_dict())
     return jsonify(dic)
 
 
