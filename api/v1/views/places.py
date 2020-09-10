@@ -60,7 +60,7 @@ def create_place(city_id):
     if not json_input:
         abort(400, 'Not a JSON')
 
-    if "user_id" not in data:
+    if "user_id" not in json_input:
         abort(400, 'Missing user_id')
 
     if storage.get("User", json_input["user_id"]) is None:
@@ -69,9 +69,10 @@ def create_place(city_id):
     if "name" not in json_input:
         abort(400, 'Missing name')
 
-    new = Place(user_id=json_input["user_id"],
-                name=json_input["name"],
-                city_id=city_id)
+    new_place = Place(user_id=json_input["user_id"],
+                      name=json_input["name"],
+                      city_id=city_id)
+
     storage.save()
     return jsonify(new.to_dict()), 201
 
