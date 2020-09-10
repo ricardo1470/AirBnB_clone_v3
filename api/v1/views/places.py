@@ -69,8 +69,8 @@ def create_place(city_id):
         abort(400, 'Missing name')
 
     new = Place(user_id=json_input["user_id"],
-                      name=json_input["name"],
-                      city_id=city_id)
+                name=json_input["name"],
+                city_id=city_id)
 
     storage.save()
     return jsonify(new.to_dict()), 201
