@@ -5,7 +5,7 @@ Contains the TestFileStorageDocs classes
 
 from datetime import datetime
 import inspect
-import models
+from models import *
 from models.engine import file_storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -18,6 +18,12 @@ import json
 import os
 import pep8
 import unittest
+from os import getenv
+from models import storage
+import models
+
+db = getenv("HBNB_TYPE_STORAGE")
+
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -113,3 +119,9 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """Test all objects"""
+        t = storage.count(State)
+        self.assertEqual(t, 1)
