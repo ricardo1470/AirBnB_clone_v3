@@ -68,7 +68,7 @@ def create_place(city_id):
     if "name" not in json_input:
         abort(400, 'Missing name')
 
-    new_place = Place(user_id=json_input["user_id"],
+    new = Place(user_id=json_input["user_id"],
                       name=json_input["name"],
                       city_id=city_id)
 
