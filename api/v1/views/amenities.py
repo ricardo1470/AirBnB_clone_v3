@@ -7,7 +7,7 @@ from models import storage, amenity
 from models.amenity import Amenity
 
 
-@app_views.route('/amenities', methods=['GET'],strict_slashes=False)
+@app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def get_all_amenities():
     """Retrieves the list of all Amenity objects"""
 
