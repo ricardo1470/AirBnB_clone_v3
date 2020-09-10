@@ -7,7 +7,6 @@ from models import storage
 from models.user import User
 from models.place import Place
 from models.city import City
-from models.base_model import BaseModel
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
@@ -82,19 +81,19 @@ def create_place(city_id):
 def put_a_places(place_id):
     """Updates a Place object"""
 
-    place = storage.get("Place", place_id)
-
-    if place is None:
-        abort(404)
-
-    json_input = request.get_json()
+    places = list(storage.all(Place).values())
+    json_input = request.get_json(silent=True)
 
     if json_input is None:
-        abort(400, "Not a JSON")
+        abort(400, 'Not a JSON')
 
-    for key, value in json_input.items():
-        if key not in ['id', 'created_at', 'updated_at', 'user_id', 'city_id']:
-            setattr(place, key, value)
+    for place in places:
+        if place.id == place_id:
+            for key, value in place_dict.items():
+                if key != 'id' and key != 'created_at' and key != 'updated_at'\
+                        and key != 'user_id' and key != 'city_id':
+                    setattr(place, key, value)
 
-    place.save()
-    return jsonify(place.to_dict()), 200
+            storage.save()
+            return jsonify(place.to_dict()), 200
+    abort(404)
