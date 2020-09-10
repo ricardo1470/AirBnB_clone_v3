@@ -56,10 +56,11 @@ def create_place(city_id):
         abort(404)
 
     json_input = request.get_json()
+
     if not json_input:
         abort(400, 'Not a JSON')
 
-    if "user_id" not in json_input:
+    if "user_id" not in data:
         abort(400, 'Missing user_id')
 
     if storage.get("User", json_input["user_id"]) is None:
@@ -68,10 +69,9 @@ def create_place(city_id):
     if "name" not in json_input:
         abort(400, 'Missing name')
 
-    new_place = Place(user_id=json_input["user_id"],
-                      name=json_input["name"],
-                      city_id=city_id)
-
+    new = Place(user_id=json_input["user_id"],
+                name=json_input["name"],
+                city_id=city_id)
     storage.save()
     return jsonify(new.to_dict()), 201
 
@@ -80,19 +80,20 @@ def create_place(city_id):
 def put_a_places(place_id):
     """Updates a Place object"""
 
-    place = storage.get("Place", place_id)
+    places = list(storage.all(Place).values())
 
-    if place is None:
-        abort(404)
-
-    json_input = request.get_json()
+    json_input = request.get_json(silent=True)
 
     if json_input is None:
-        abort(400, "Not a JSON")
+        return make_response("Not a JSON", 400)
 
-    for key, value in json_input.items():
-        if key not in ['id', 'created_at', 'updated_at', 'user_id', 'city_id']:
-            setattr(place, key, value)
+    for mv in places:
+        if mv.id == place_id:
+            for key, value in json_input.items():
+                if key != 'id' and key != 'created_at' and key != 'updated_at'\
+                        and key != 'user_id' and key != 'city_id':
+                    setattr(mv, key, value)
 
-    place.save()
-    return jsonify(place.to_dict()), 200
+            storage.save()
+            return jsonify(mv.to_dict()), 200
+    abort(404)
